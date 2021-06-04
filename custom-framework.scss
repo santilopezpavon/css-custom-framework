@@ -1,0 +1,284 @@
+// Variables.
+//******************************************
+
+// Default linea Height.
+$lh: 1.6;
+// Font size by default. The body font size in rem.
+$fs-def: 1.6;
+// Width to apply Full HD styles.
+$applyFull:1400px;
+// Base font size from Full HD styles.
+$viewportsFull: 1vh;
+// The paddings left and right in rem.
+$paddings: 1.5;
+// The font size in rems no responsive
+$fs: (
+    1: 1.5,
+    2: 2,
+    3: 2.5
+);
+// Breakpoints for do the grid.
+$breakpoints: (
+    "sm": 500,
+    "md": 1000,
+);
+// Responsive font size, 0 is the min size in rems for the font size.
+$fsResponsive: (
+    1: (
+      0: 1,
+      500: 2,
+      1000: 3,
+    )    
+);
+// Widths cols.
+$widths: 10,20,30,33,40,50,60,70,80,100;
+// Colors letter and backgrounds
+$colors: (
+    "red": red,
+    "yellow": yellow,
+    "white": white,
+);
+// Oberride color in function the background color.
+$background: (
+  "red": (
+    "yellow": black,
+    "white": black,
+  )
+);
+// Margins and paddings top and bottom.
+$spaces: (
+    1: 1.5,
+    2: 2,
+    3: 2.5
+);
+// Base margins and paddings.
+//$maginsPaddings: 15, 30;
+// Paddings Sections
+
+
+@import "reboot.scss";
+// Base
+html {
+    font-size: 10px;
+}
+body {
+    font-size: $fs-def + rem;
+    font-weight: 400;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// Containers.
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding-left: $paddings + rem;
+  padding-right: $paddings + rem;
+  margin: auto;
+  @media (min-width: $applyFull) {
+    width: 80%;
+    min-width: 1200px;
+  }
+}
+.container-fluid {
+  width: 100%;
+  margin: auto;
+  padding-left: $paddings + rem;
+  padding-right: $paddings + rem;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -$paddings + rem;
+  margin-right: -$paddings + rem;
+}
+.col{
+  padding-left: $paddings + rem;
+  padding-right: $paddings + rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+@each $value in $widths {
+  .col-#{$value} {
+    width: #{$value+"%"} ;
+    padding-left: $paddings + rem;
+    padding-right: $paddings + rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .offset-#{$value} {
+    margin-left: #{$value+"%"} ;
+  }
+}
+@each $key, $value in $breakpoints {
+  @media(min-width: #{$value+"px"}) {
+    @each $valueWidth in $widths {
+      .offset-#{$key}-#{$valueWidth} {
+        margin-left: #{$valueWidth+"%"} ;
+      }
+      .col-#{$key}-#{$valueWidth} {
+        width: #{$valueWidth+"%"} ;
+        padding-left: $paddings + rem;
+        padding-right: $paddings + rem;
+        display: flex;
+        flex-wrap: wrap;
+      } 
+    }
+  }   
+}
+@each $key, $value in $fsResponsive {
+  .fs-responsive-#{$key} {    
+    line-height: $lh;
+    @each $min, $size in $value {
+      @if $min == 0 {
+        font-size: $size + rem;
+      }
+      @if $min != 0 {
+        @media(min-width: #{$min+"px"}) {
+          font-size: $size + rem;
+        }
+      }     
+    }
+  }
+}
+@each $key, $value in $spaces {
+  .mb-#{$key} {
+    margin-bottom: $value + rem;
+  }
+  .mt-#{$key} {
+    margin-top: $value + rem;
+  }
+  .pb-#{$key} {
+    padding-bottom: $value + rem;
+  }
+  .pt-#{$key} {
+    padding-top: $value + rem;
+  }
+  .mb-neg-#{$key} {
+    margin-bottom: -$value + rem;
+  }
+  .mt-neg-#{$key} {
+    margin-top: -$value + rem;
+  }
+}
+@each $key, $value in $colors {
+  .bg-#{$key} {
+    background-color: $value;
+  }
+  .color-#{$key} {
+    background-color: $value;
+  }
+}
+
+// Utils.
+// ****************************************
+.fw-300 {
+  font-weight: 300;
+}
+.fw-500 {
+  font-weight: 500;
+}
+.fw-700 {
+  font-weight: 700;
+}
+.text-center {
+  text-align: center;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.display-block {
+  display: block;
+}
+.display-inline-block {
+  display: inline-block;
+}
+.display-flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex
+}
+.adapt {
+  width: 100%;
+  height: 100%;
+}
+.object-cover,
+.adapt img, .adapt picture {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.center-item-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+.img-full, .img-full-inside img {
+  width: 100%;  
+}
+.d-flex {
+  display: flex;
+}
+// Need flex
+.align-center {  
+  align-items: center;
+  justify-content: center;
+}
+.adjust-element {
+  height: 100%;
+  width: 100%;
+}
+.jc-sb {
+  justify-content: space-between;
+}
+.jc-sa {
+  justify-content: space-around;
+}
+.pos-rel {
+  position: relative;
+}
+// Tamaño de fuente.
+@each $key, $value in $fs {
+  .fs-#{$key} {
+    font-size: $value + rem;
+    line-height: $lh;
+  }
+}
+// Line Height
+.lh-def {
+    line-height: $lh;
+}
+@each $key, $value in $background {
+  .bg-#{$key} {
+    @each $colorclass, $valuecolor in $value {
+      .color-#{$colorclass} {
+        color: $valuecolor;
+      }
+    }
+
+  }
+}
+
+
+
+
+@media (min-width: $applyFull) {
+  html {
+    font-size: $viewportsFull;
+  }
+  .container {
+    width: 80%;
+    min-width: 1200px;
+  }
+  
+}
