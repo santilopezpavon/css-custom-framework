@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <style>
+            .gallery {
+                display:grid;
+                gap: 1rem;
+                 grid-template-columns: repeat(auto-fit, minmax(min(500px, 100%), 1fr));
+
+            }
+            .gallery div {
+                background-color: gray;
+            }
+            .feature {
+                grid-column: span 2;
+            }
+        </style>    
+    </head>
+    <body>
+
+        <div class="gallery">
+            <div class="feature">
+                <p>Hola</p>
+            </div>
+            <div>
+                <p>Hola</p>
+            </div>
+            <div>
+                <p>Hola</p>
+            </div>
+        </div>
+    </body>
+</html>
+
